@@ -25,8 +25,9 @@ int main(  int argc, char **argv  )
 	ros::Publisher test_publisher = nh.advertise<performance_tests::SuperAwesome>( "test_topic", 10  ); 
 
 	// publisher_rate private parameter to be defined at run time 
+	// defaults to 10 Hz
 	int publisher_rate;
-	nh.param( "publisher_rate", publisher_rate, 10 );
+	nh.param( "/cpp_publisher/publisher_rate", publisher_rate, 10 );
 
 	// setting the loop rate 
 	ros::Rate loop_rate( publisher_rate );
