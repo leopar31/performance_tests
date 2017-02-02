@@ -17,13 +17,13 @@ for publishers and subscribers alike the ROS_INFO signal calls (as unnecessary f
 All tests are perfomed on a ROS Kinetic under Ubuntu 16.04 installed in a VirtualBox, which is running on a Dell laptop with Windows 8 
 
 Typical values of CPP_Publisher (running at 50Hz publishing rate) overheads:
-    - without a subscriber running    ~= 0.020 ms  
-    - with CPP_Subscriber running     ~= 0.080 - 0.090 ms with occasional spikes of the overhead above 0.100 ms
-    - with Python_Subscriber running  ~= 0.080 - 0.110 ms with occasional spikes of the overhead above 0.200 ms
+* without a subscriber running    ~= 0.020 ms  
+* with CPP_Subscriber running     ~= 0.080 - 0.090 ms with occasional spikes of the overhead above 0.100 ms
+* with Python_Subscriber running  ~= 0.080 - 0.110 ms with occasional spikes of the overhead above 0.200 ms
     
     overheads are generally much more unstable with a subscriber running  
     
 Whlie running alongside CPP_Publisher typical subscribers overheads: 
-    - CPP_Subscriber    ~= 0.050 - 0.080 ms
-    - Python_Subscriber ~= 20 ms
+* CPP_Subscriber    ~= 0.050 - 0.080 ms
+* Python_Subscriber ~= 20 ms
     
