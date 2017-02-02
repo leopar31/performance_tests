@@ -23,7 +23,7 @@ int main(  int argc, char **argv  )
 	// a node handle to start the publisher
 	ros::NodeHandle nh;
 	// the publisher  
-	ros::Publisher test_publisher = nh.advertise<performance_tests::SuperAwesome>( "test_topic", 10  ); 
+	ros::Publisher test_publisher = nh.advertise<performance_tests::SuperAwesome>( "test_topic", 1 ); 
 
 	// publisher_rate private parameter to be defined at run time 
 	// defaults to 10 Hz
@@ -34,8 +34,8 @@ int main(  int argc, char **argv  )
 	ros::Rate loop_rate( publisher_rate );
 
 	std::stringstream str_strm;
-	clock_t overhead_start = std::clock(); 
-	clock_t overhead_end   = std::clock(); 
+	double sec_now; 
+	double sec_before = ros::Time::now().toSec(); 
 	while( ros::ok() )
 	{
 		// the message object
@@ -51,22 +51,21 @@ int main(  int argc, char **argv  )
 		// publishing the main message on the test_topic
 		test_publisher.publish( msg );
 
-		// // a signal output
+		// a signal output
 		// ROS_INFO( "%s", msg.sup_awsm.c_str() );
 
 		// spinning callbacks once
 		ros::spinOnce();
 		
-		// measuring overhead excluding the signal output and rate.sleep()
-		overhead_end = std::clock();
+		// measuring actual frequency 
+		sec_now = ros::Time::now().toSec();
 
-		// chrono requires C++11 support
-		ROS_INFO( "CPP publisher overhead: %f ms", 1000.0 * (double)( overhead_end - overhead_start ) / CLOCKS_PER_SEC );
+		ROS_INFO( "CPP publisher freq: %f Hz", 1.0 / ( sec_now - sec_before ) );
+
+		sec_before = sec_now;
 
 		// sleepnig untill the next loop
 		loop_rate.sleep();
-
-		overhead_start = std::clock();
 	}
 
 	return 0;

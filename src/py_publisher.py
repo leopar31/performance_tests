@@ -3,23 +3,19 @@
 import rospy
 from performance_tests.msg import SuperAwesome
 
-import time
-
-overhead_end   = time.time()
-overhead_start = time.time()
-
+global sec_before
 
 # publisher function 
 def py_publisher():
 
-    global overhead_end
-    global overhead_start
-
-    pub = rospy.Publisher( 'test_topic', SuperAwesome, queue_size=10 )
+    pub = rospy.Publisher( 'test_topic', SuperAwesome, queue_size=1 )
 
     rospy.init_node( 'py_publisher', anonymous=True )
 
     rate = rospy.Rate( rospy.get_param( "~publisher_rate", 10 ) )
+
+    global sec_before
+    sec_before = rospy.get_time()
 
     while not rospy.is_shutdown():
 
@@ -28,13 +24,11 @@ def py_publisher():
 
         pub.publish( msg )
 
-	overhead_end = time.time()
-
-	rospy.loginfo( "Python publisher overhead %f ms", ( overhead_end - overhead_start ) * 1000.0 )
+	sec_now = rospy.get_time()
+	rospy.loginfo( "Python publisher freq %f Hz", 1.0 / ( sec_now - sec_before ) )
+	sec_before = sec_now
 
         rate.sleep()
-	
-	overhead_start = time.time()
 
 
 # main code 
