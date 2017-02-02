@@ -3,9 +3,17 @@
 import rospy
 from performance_tests.msg import SuperAwesome
 
+import time
+
+overhead_end   = time.time()
+overhead_start = time.time()
+
 
 # publisher function 
 def py_publisher():
+
+    global overhead_end
+    global overhead_start
 
     pub = rospy.Publisher( 'test_topic', SuperAwesome, queue_size=10 )
 
@@ -18,11 +26,15 @@ def py_publisher():
 	msg = SuperAwesome()
         msg.sup_awsm = "Super Awesome Message %s" % rospy.get_time()
 
-	rospy.loginfo( msg )
-
         pub.publish( msg )
 
+	overhead_end = time.time()
+
+	rospy.loginfo( "Python publisher overhead %f ms", ( overhead_end - overhead_start ) * 1000.0 )
+
         rate.sleep()
+	
+	overhead_start = time.time()
 
 
 # main code 
