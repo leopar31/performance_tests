@@ -14,3 +14,5 @@ For publishers rate.sleep() calls are excluded from the measured overhead
 
 for publishers and subscribers alike the ROS_INFO signal calls (as unnecessary for functionality) are excluded from overheads measurements 
 
+All tests are perfomed on a ROS Kinetic under Ubuntu 16.04 installed in a VirtualBox, which is running on a Dell laptop with Windows 8 
+
