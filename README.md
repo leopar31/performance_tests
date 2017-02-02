@@ -46,5 +46,5 @@ Surprisingly the Python Publisher is not as slow as the Subscriber. It is probab
 While looking at the subscribers overheads one can assume that they should be able to run at much higher rates than 100Hz, but when pushed to higher rates (without a subscriber - measuring by "rostopic hz /test_topic") have difficulties reaching publishing rates of above ~120 Hz even with ROS_INFO calls removed, which might be to do with the current installation I have 
 
 
-
+With more time awailable I would have tested different timing libraries to make sure that timing precision does not influence the results, or/tried to publish the overheads values as separate ROS topics to analyse the performance figures using ROS tools 
 
